@@ -9,6 +9,7 @@ from logger_setup import setup_logger
 from rabbit_handler import Rabbit
 from configparser import ConfigParser
 import json
+import subprocess
 
 logger = setup_logger()
 
@@ -21,11 +22,15 @@ CONFIDENCE_THRESHOLD = 0.7
 def handle_detection_trigger(payload):
     logger.info("trigger ontvangen: %s", payload)
 
+    subprocess.run(["python", "scripts/home.py"], check=True)
+
     try:
         max_retries = 5
         retry_count = 0
         label = "onbekend"
         confidence = 0.0
+
+        subprocess.run(["python", "scripts/blokje_oppak_camera.py"], check=True)
 
         while retry_count < max_retries:
             try:
@@ -54,8 +59,15 @@ def handle_detection_trigger(payload):
         if confidence < CONFIDENCE_THRESHOLD:
             logger.warning("Geen betrouwbare detectie na %d pogingen, label = 'onbekend'", max_retries)
             label = "onbekend"
-        
-        
+
+        # Dobot aansturen op basis van label
+        if label == "zwart blokje_grijs logo":
+            subprocess.run(["python", "scripts/mainDobot.py", "--plaats", "plek1"], check=True)
+        elif label == "trigender_groen logo":
+            subprocess.run(["python", "scripts/mainDobot.py", "--plaats", "plek2"], check=True)
+        else:
+            subprocess.run(["python", "scripts/mainDobot.py", "--plaats", "onbekend"], check=True)
+
         if rabbitEnable:
             rabbit.publish("Detectie", f"band.{band_nummer}", json.dumps(result))
         else:
