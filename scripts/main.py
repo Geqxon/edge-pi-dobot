@@ -11,6 +11,8 @@ from configparser import ConfigParser
 import json
 import subprocess
 
+subprocess.run(["python", "scripts/home.py"], check=True)
+
 logger = setup_logger()
 
 MODEL_PATH = os.path.abspath("model/rpi4-blokjes.eim")
@@ -21,8 +23,6 @@ CONFIDENCE_THRESHOLD = 0.7
 
 def handle_detection_trigger(payload):
     logger.info("trigger ontvangen: %s", payload)
-
-    subprocess.run(["python", "scripts/home.py"], check=True)
 
     try:
         max_retries = 5
