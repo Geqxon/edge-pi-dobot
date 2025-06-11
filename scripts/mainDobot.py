@@ -31,7 +31,7 @@ if __name__ == "__main__":
 
     available_ports = list_ports.comports()
     print(f'available ports: {[x.device for x in available_ports]}')
-    port = available_ports[1].device
+    port = available_ports[0].device
     device = Dobot(port=port)
     print('CURRENT POSE', device.get_pose())
 
