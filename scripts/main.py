@@ -12,6 +12,7 @@ import json
 import subprocess
 
 subprocess.run(["python", "scripts/home.py"], check=True)
+time.sleep(20)  # Wacht tot de Dobot klaar is
 
 logger = setup_logger()
 
@@ -20,6 +21,12 @@ IMAGE_PATH = os.path.abspath("images/captured_image.jpg")
 SAVE_PATH = os.path.abspath("debug")
 
 CONFIDENCE_THRESHOLD = 0.7
+
+LABEL_NAAR_PLEK = {
+    "zwart blokje_grijs logo": "plek1",
+    "trigender_groen logo": "plek2",
+    # Voeg hier extra labels toe als je meer blokjes wilt sorteren
+}
 
 def handle_detection_trigger(payload):
     logger.info("trigger ontvangen: %s", payload)
@@ -60,13 +67,9 @@ def handle_detection_trigger(payload):
             logger.warning("Geen betrouwbare detectie na %d pogingen, label = 'onbekend'", max_retries)
             label = "onbekend"
 
-        # Dobot aansturen op basis van label
-        if label == "zwart blokje_grijs logo":
-            subprocess.run(["python", "scripts/mainDobot.py", "--plaats", "plek1"], check=True)
-        elif label == "trigender_groen logo":
-            subprocess.run(["python", "scripts/mainDobot.py", "--plaats", "plek2"], check=True)
-        else:
-            subprocess.run(["python", "scripts/mainDobot.py", "--plaats", "onbekend"], check=True)
+        # Dobot aansturen op basis van label via mapping
+        plek = LABEL_NAAR_PLEK.get(label, "onbekend")
+        subprocess.run(["python", "scripts/mainDobot.py", "--plaats", plek], check=True)
 
         if rabbitEnable:
             rabbit.publish("Detectie", f"band.{band_nummer}", json.dumps(result))
