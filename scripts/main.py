@@ -65,7 +65,7 @@ def handle_detection_trigger(payload):
         normalized_label = label.strip().lower()
 
         plek1_labels = ["zwart blokje", "grijs logo"]
-        plek2_labels = ["trigender", "groen logo"]
+        plek2_labels = ["trigender blokje", "groen logo"]
 
         if normalized_label in [l.lower() for l in plek1_labels]:
             subprocess.run(["python", "scripts/mainDobot.py", "--plaats", "plek1"], check=True)
