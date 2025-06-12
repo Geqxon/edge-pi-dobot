@@ -24,9 +24,10 @@ def plaats_blokje(device, plek):
     else:
         # Onbekend plek
         device.move_to(x=250, y=0, z=120, r=80) # Hoog boven de loopband
-        device.move_to(x=250, y=0, z=15, r=80) # laag boven de loopband
+        device.move_to(x=250, y=0, z=18, r=80) # laag boven de loopband
         device.grip(False)
-        time.sleep(1)  # Wacht even om los te laten
+        time.sleep(0.5)  # Wacht even om los te laten
+        device.move_to(x=250, y=0, z=120, r=80) # Hoog boven de loopband
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
