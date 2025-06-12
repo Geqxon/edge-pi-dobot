@@ -26,4 +26,3 @@ device.grip(True)
 time.sleep(1)  # Wacht even om grip te krijgen
 device.move_to(position=POSITION_A_HIGH)
 device.move_to(position=POSITION_B)
-device.grip(off=True)
