@@ -12,7 +12,7 @@ import json
 import subprocess
 
 subprocess.run(["python", "scripts/home.py"], check=True)
-time.sleep(10)  # Wacht even om zeker te zijn dat de Dobot klaar is
+time.sleep(15)  # Wacht even om zeker te zijn dat de Dobot klaar is
 
 logger = setup_logger()
 
