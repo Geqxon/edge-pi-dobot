@@ -16,7 +16,7 @@ device = Dobot(port=port)
 # device.clear_alarms()
 print('CURRENT POSE', device.get_pose())
 
-POSITION_A = CustomPosition(x=247, y=-150, z=12, r=80) #oppak
+POSITION_A = CustomPosition(x=247, y=-155, z=12, r=80) #oppak
 POSITION_A_HIGH = CustomPosition(x=247, y=-150, z=80, r=80) #oppak hoog
 POSITION_B = CustomPosition(x=-100, y=-200, z=90, r=-5) #scan locatie
 
