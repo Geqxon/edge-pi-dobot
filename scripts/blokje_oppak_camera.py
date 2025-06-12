@@ -16,13 +16,13 @@ device = Dobot(port=port)
 # device.clear_alarms()
 print('CURRENT POSE', device.get_pose())
 
-POSITION_A = CustomPosition(x=247, y=-150, z=-12, r=80) #oppak
+POSITION_A = CustomPosition(x=247, y=-150, z=12, r=80) #oppak
 POSITION_A_HIGH = CustomPosition(x=247, y=-150, z=80, r=80) #oppak hoog
-POSITION_B = CustomPosition(x=-100, y=-200, z=155, r=-5) #scan locatie
+POSITION_B = CustomPosition(x=-100, y=-200, z=90, r=-5) #scan locatie
 
 device.move_to(position=POSITION_A_HIGH)
 device.move_to(position=POSITION_A)
 device.grip(True)
-time.sleep(0.5)
+time.sleep(1)  # Wacht even om grip te krijgen
 device.move_to(position=POSITION_A_HIGH)
 device.move_to(position=POSITION_B)

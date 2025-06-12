@@ -62,9 +62,14 @@ def handle_detection_trigger(payload):
             label = "onbekend"
 
         # Dobot aansturen op basis van label
-        if label == "zwart blokje_grijs logo":
+        normalized_label = label.strip().lower()
+
+        plek1_labels = ["zwart blokje", "grijs logo"]
+        plek2_labels = ["trigender", "groen logo"]
+
+        if normalized_label in [l.lower() for l in plek1_labels]:
             subprocess.run(["python", "scripts/mainDobot.py", "--plaats", "plek1"], check=True)
-        elif label == "trigender_groen logo":
+        elif normalized_label in [l.lower() for l in plek2_labels]:
             subprocess.run(["python", "scripts/mainDobot.py", "--plaats", "plek2"], check=True)
         else:
             subprocess.run(["python", "scripts/mainDobot.py", "--plaats", "onbekend"], check=True)
