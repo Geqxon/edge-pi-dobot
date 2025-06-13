@@ -22,6 +22,18 @@ SAVE_PATH = os.path.abspath("debug")
 
 CONFIDENCE_THRESHOLD = 0.7
 
+def see_if_all_block_labels_are_present(result, expected_labels):
+    """
+    Controleer of alle verwachte blokjeslabels aanwezig zijn in de detectie resultaten.
+    """
+    detected_labels = [box["label"] for box in result.get("boxes", [])]
+
+    for label in expected_labels:
+        if label not in detected_labels:
+            logger.warning("Label '%s' niet gedetecteerd!", label)
+            return False
+    return True
+
 def handle_detection_trigger(payload):
     logger.info("trigger ontvangen: %s", payload)
 
@@ -86,9 +98,9 @@ def handle_detection_trigger(payload):
         plek1_labels = ["zwart blokje", "grijs logo"]
         plek2_labels = ["trigender blokje", "groen logo"]
 
-        if normalized_label in [l.lower() for l in plek1_labels]:
+        if see_if_all_block_labels_are_present(result, plek1_labels):
             subprocess.run(["python", "scripts/mainDobot.py", "--plaats", "plek1"], check=True)
-        elif normalized_label in [l.lower() for l in plek2_labels]:
+        elif see_if_all_block_labels_are_present(result, plek2_labels):
             subprocess.run(["python", "scripts/mainDobot.py", "--plaats", "plek2"], check=True)
         else:
             subprocess.run(["python", "scripts/mainDobot.py", "--plaats", "onbekend"], check=True)
