@@ -60,9 +60,28 @@ def handle_detection_trigger(payload):
         if confidence < CONFIDENCE_THRESHOLD:
             logger.warning("Geen betrouwbare detectie na %d pogingen, label = 'onbekend'", max_retries)
             label = "onbekend"
+            
+        result2 = result.get("boxes", [])
+        x_blok = None
+        x_logo = None
+        
+        for box in result2:
+            if box["label"].endswith("blokje"):
+                if box["confidence"] >= x_blok["confidence"] if x_blok else 0:
+                    x_blok = box
+            elif box["label"].endswith("logo"):
+                if box["confidence"] >= x_logo["confidence"] if x_logo else 0:
+                    x_logo = box
+        if x_blok:
+            logger.info("Blokje gevonden: %s", x_blok)
+        if x_logo:
+            logger.info("Logo gevonden: %s", x_logo)
+            
+        result["boxes"] = [x_blok, x_logo] if x_blok or x_logo else []
+        
 
         # Dobot aansturen op basis van label
-        normalized_label = label.strip().lower()
+        normalized_label = (result["highest_label"] or "onbekend").strip().lower()
 
         plek1_labels = ["zwart blokje", "grijs logo"]
         plek2_labels = ["trigender blokje", "groen logo"]
@@ -73,7 +92,7 @@ def handle_detection_trigger(payload):
             subprocess.run(["python", "scripts/mainDobot.py", "--plaats", "plek2"], check=True)
         else:
             subprocess.run(["python", "scripts/mainDobot.py", "--plaats", "onbekend"], check=True)
-
+        
         if rabbitEnable:
             rabbit.publish("Detectie", f"band.{band_nummer}", json.dumps(result))
         else:
