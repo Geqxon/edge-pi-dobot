@@ -10,6 +10,10 @@ from rabbit_handler import Rabbit
 from configparser import ConfigParser
 import json
 import subprocess
+from serial.tools import list_ports
+from pydobotplus import Dobot
+import logging
+from mainDobot import plaats_blokje
 
 subprocess.run(["python", "scripts/home.py"], check=True)
 time.sleep(20)  # Wacht even om zeker te zijn dat de Dobot klaar is
@@ -33,6 +37,22 @@ def see_if_all_block_labels_are_present(result, expected_labels):
             logger.warning("Label '%s' niet gedetecteerd!", label)
             return False
     return True
+
+class staticValues:
+    dobot_device = None
+
+def get_device():
+    if staticValues.dobot_device:
+        return staticValues.dobot_device
+    
+    available_ports = list_ports.comports()
+    print(f'available ports: {[x.device for x in available_ports]}')
+    port = available_ports[0].device
+    device = Dobot(port=port)
+    if not staticValues.dobot_device:
+        staticValues.dobot_device = device
+        
+
 
 def handle_detection_trigger(payload):
     logger.info("trigger ontvangen: %s", payload)
@@ -79,10 +99,10 @@ def handle_detection_trigger(payload):
         
         for box in result2:
             if box["label"].endswith("blokje"):
-                if box["confidence"] >= x_blok["confidence"] if x_blok else 0:
+                if x_blok is None or box["confidence"] > x_blok["confidence"]:
                     x_blok = box
             elif box["label"].endswith("logo"):
-                if box["confidence"] >= x_logo["confidence"] if x_logo else 0:
+                if x_logo is None or box["confidence"] > x_logo["confidence"]:
                     x_logo = box
         if x_blok:
             logger.info("Blokje gevonden: %s", x_blok)
@@ -93,17 +113,24 @@ def handle_detection_trigger(payload):
         
 
         # Dobot aansturen op basis van label
-        normalized_label = (result["highest_label"] or "onbekend").strip().lower()
+        # normalized_label = (result["highest_label"] or "onbekend").strip().lower()
 
         plek1_labels = ["zwart blokje", "grijs logo"]
         plek2_labels = ["trigender blokje", "groen logo"]
 
         if see_if_all_block_labels_are_present(result, plek1_labels):
-            subprocess.run(["python", "scripts/mainDobot.py", "--plaats", "plek1"], check=True)
+            plaats_blokje(get_device(), "plek1")
         elif see_if_all_block_labels_are_present(result, plek2_labels):
-            subprocess.run(["python", "scripts/mainDobot.py", "--plaats", "plek2"], check=True)
+            plaats_blokje(get_device(), "plek2")
         else:
-            subprocess.run(["python", "scripts/mainDobot.py", "--plaats", "onbekend"], check=True)
+            plaats_blokje(get_device(), "onbekend")
+
+
+            # subprocess.run(["python", "scripts/mainDobot.py", "--plaats", "plek1"], check=True)
+            # subprocess.run(["python", "scripts/mainDobot.py", "--plaats", "plek2"], check=True)
+            # subprocess.run(["python", "scripts/mainDobot.py", "--plaats", "onbekend"], check=True)
+
+
         
         if rabbitEnable:
             rabbit.publish("Detectie", f"band.{band_nummer}", json.dumps(result))
