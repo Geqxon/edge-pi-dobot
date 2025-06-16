@@ -98,6 +98,7 @@ def handle_detection_trigger(payload):
         x_logo = None
         
         for box in result2:
+            print(box)
             if box["label"].endswith("blokje"):
                 if x_blok is None or box["confidence"] > x_blok["confidence"]:
                     x_blok = box
