@@ -6,7 +6,7 @@ print(f'available ports: {[x.device for x in available_ports]}')
 port = available_ports[0].device
 device = Dobot(port=port)
 
-device.set_home(x=269.068, y=9.949, z=123.561, r=0)
+device.set_home(x=269, y=10, z=125, r=0)
 device.home()
 
 device.close()
