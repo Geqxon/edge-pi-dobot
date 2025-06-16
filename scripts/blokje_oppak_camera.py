@@ -21,6 +21,8 @@ POSITION_A_HIGH = CustomPosition(x=247, y=-145, z=100, r=80) #oppak hoog
 POSITION_B = CustomPosition(x=-90, y=-280, z=110, r=8) #scan locatie
 
 device.move_to(position=POSITION_A_HIGH)
+device.grip(False)  # Zorg dat de grijper open is
+time.sleep(1)  # Wacht even om zeker te zijn dat de grijper open is
 device.move_to(position=POSITION_A)
 device.grip(True)
 time.sleep(1)  # Wacht even om grip te krijgen
