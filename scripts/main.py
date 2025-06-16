@@ -100,10 +100,10 @@ def handle_detection_trigger(payload):
         for box in result2:
             print(box)
             if box["label"].endswith("blokje"):
-                if x_blok is None or box["confidence"] > x_blok["confidence"]:
+                if x_blok is None or box["value"] > x_blok["value"]:
                     x_blok = box
             elif box["label"].endswith("logo"):
-                if x_logo is None or box["confidence"] > x_logo["confidence"]:
+                if x_logo is None or box["value"] > x_logo["value"]:
                     x_logo = box
         if x_blok:
             logger.info("Blokje gevonden: %s", x_blok)
