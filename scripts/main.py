@@ -16,7 +16,6 @@ import logging
 from mainDobot import plaats_blokje
 
 subprocess.run(["python", "scripts/home.py"], check=True)
-time.sleep(20)  # Wacht even om zeker te zijn dat de Dobot klaar is
 
 logger = setup_logger()
 
