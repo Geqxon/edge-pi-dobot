@@ -120,17 +120,14 @@ def handle_detection_trigger(payload):
         plek2_labels = ["trigender blokje", "groen logo"]
 
         if see_if_all_block_labels_are_present(result, plek1_labels):
-            plaats_blokje(get_device(), "plek1")
+            #plaats_blokje(get_device(), "plek1")
+                         subprocess.run(["python", "scripts/mainDobot.py", "--plaats", "plek1"], check=True)
         elif see_if_all_block_labels_are_present(result, plek2_labels):
-            plaats_blokje(get_device(), "plek2")
+            #plaats_blokje(get_device(), "plek2")
+             subprocess.run(["python", "scripts/mainDobot.py", "--plaats", "plek2"], check=True)
         else:
-            plaats_blokje(get_device(), "onbekend")
-
-
-            # subprocess.run(["python", "scripts/mainDobot.py", "--plaats", "plek1"], check=True)
-            # subprocess.run(["python", "scripts/mainDobot.py", "--plaats", "plek2"], check=True)
-            # subprocess.run(["python", "scripts/mainDobot.py", "--plaats", "onbekend"], check=True)
-
+            #plaats_blokje(get_device(), "onbekend")
+             subprocess.run(["python", "scripts/mainDobot.py", "--plaats", "onbekend"], check=True)
 
         
         if rabbitEnable:
