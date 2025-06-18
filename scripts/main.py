@@ -37,6 +37,7 @@ def see_if_all_block_labels_are_present(result, expected_labels):
             return False
     return True
 
+#staicvalue voor de dobot
 class staticValues:
     dobot_device = None
 
