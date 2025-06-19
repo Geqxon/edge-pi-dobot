@@ -13,21 +13,25 @@ def read_errors(device: Dobot):
 def plaats_blokje(device, plek):
     if plek == "plek1":
         # Vul hier de coördinaten in voor plek1
-        device.move_to(x=200, y=-25, z=120, r=80) # Hoog boven de loopband
-        device.grip(False)
-        time.sleep(1)  # Wacht even om los te laten
-    elif plek == "plek2":
-        # Vul hier de coördinaten in voor plek2
-        device.move_to(x=200, y=25, z=120, r=80) # Hoog boven de loopband)
-        device.grip(False)
-        time.sleep(1)  # Wacht even om los te laten
-    else:
-        # Onbekend plek
-        device.move_to(x=250, y=0, z=120, r=80) # Hoog boven de loopband
-        device.move_to(x=250, y=0, z=18, r=80) # laag boven de loopband
+        device.move_to(x=-2, y=301, z=120, r=175) # Hoog boven de loopband
+        device.move_to(x=-2, y=-301, z=5, r=175)
         device.grip(False)
         time.sleep(0.5)  # Wacht even om los te laten
-        device.move_to(x=250, y=0, z=120, r=80) # Hoog boven de loopband
+        device.move_to(x=-2, y=-301, z=120, r=175)
+    elif plek == "plek2":
+        # Vul hier de coördinaten in voor plek2
+        device.move_to(x=320, y=-6, z=120, r=80) # Hoog boven de loopband)
+        device.move_to(x=320, y=-6, z=20, r=80)
+        device.grip(False)
+        time.sleep(0.5)  # Wacht even om los te laten
+        device.move_to(x=320, y=-6, z=120, r=80)
+    else:
+        # Onbekend plek
+        device.move_to(x=245, y=8, z=120, r=175) # Hoog boven de loopband
+        device.move_to(x=245, y=8, z=5, r=175) # laag boven de loopband
+        device.grip(False)
+        time.sleep(0.5)  # Wacht even om los te laten
+        device.move_to(x=245, y=8, z=120, r=80) # Hoog boven de loopband
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
