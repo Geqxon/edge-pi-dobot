@@ -136,7 +136,7 @@ def handle_detection_trigger(payload):
             mqtt.publish_detectie_resultaat(label)
 
     except Exception as outer_error:
-        logger.critical("Fout in detectieproces: %s", outer_error)
+        logger.critical("Fout in detectieproces: %s", outer_error, stack_info=True)
 
 if __name__ == "__main__":
     config = ConfigParser()
