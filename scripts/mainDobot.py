@@ -13,11 +13,11 @@ def read_errors(device: Dobot):
 def plaats_blokje(device, plek):
     if plek == "plek1":
         # Vul hier de coördinaten in voor plek1
-        device.move_to(x=-2, y=301, z=120, r=80) # Hoog boven de loopband
-        device.move_to(x=-2, y=-301, z=5, r=80)
+        device.move_to(x=-2, y=201, z=120, r=80) # Hoog boven de loopband
+        device.move_to(x=-2, y=-201, z=5, r=80)
         device.grip(False)
         time.sleep(0.5)  # Wacht even om los te laten
-        device.move_to(x=-2, y=-301, z=120, r=80)
+        device.move_to(x=-2, y=-201, z=120, r=80)
     elif plek == "plek2":
         # Vul hier de coördinaten in voor plek2
         device.move_to(x=220, y=-6, z=120, r=80) # Hoog boven de loopband)
