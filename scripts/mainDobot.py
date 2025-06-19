@@ -17,6 +17,7 @@ def plaats_blokje(device, plek):
         device.move_to(x=-2, y=-201, z=5, r=80)
         device.grip(False)
         time.sleep(0.5)  # Wacht even om los te laten
+        device.suck(False)
         device.move_to(x=-2, y=-201, z=120, r=80)
     elif plek == "plek2":
         # Vul hier de coördinaten in voor plek2
@@ -24,6 +25,7 @@ def plaats_blokje(device, plek):
         device.move_to(x=220, y=-6, z=20, r=80)
         device.grip(False)
         time.sleep(0.5)  # Wacht even om los te laten
+        device.suck(False)
         device.move_to(x=220, y=-6, z=120, r=80)
     else:
         # Onbekend plek
@@ -31,6 +33,7 @@ def plaats_blokje(device, plek):
         device.move_to(x=245, y=8, z=5, r=175) # laag boven de loopband
         device.grip(False)
         time.sleep(0.5)  # Wacht even om los te laten
+        device.suck(False)
         device.move_to(x=245, y=8, z=120, r=80) # Hoog boven de loopband
 
 if __name__ == "__main__":
