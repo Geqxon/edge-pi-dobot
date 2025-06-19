@@ -26,7 +26,7 @@ def plaats_blokje(device, plek):
         device.grip(False)
         time.sleep(0.5)  # Wacht even om los te laten
         device.suck(False)
-        device.move_to(x=320, y=-32 z=120, r=90)
+        device.move_to(x=320, y=32, z=120, r=90)
     else:
         # Onbekend plek
         device.move_to(x=245, y=8, z=120, r=175) # Hoog boven de loopband
