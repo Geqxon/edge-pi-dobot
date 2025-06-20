@@ -21,7 +21,7 @@ def plaats_blokje(device, plek):
         device.move_to(x=-2, y=-201, z=120, r=80)
     elif plek == "plek2":
         # Vul hier de coördinaten in voor plek2
-        device.move_to(x=320, y=3, z=120, r=110) # Hoog boven de loopband)
+        device.move_to(x=320, y=3, z=30, r=110) # Hoog boven de loopband)
         device.move_to(x=320, y=3, z=20, r=110)
         device.grip(False)
         time.sleep(0.5)  # Wacht even om los te laten
