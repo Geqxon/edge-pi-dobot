@@ -16,7 +16,7 @@ import logging
 from mainDobot import plaats_blokje
 
 subprocess.run(["python", "scripts/home.py"], check=True)
-
+time.sleep(30)  # Wacht even om los te laten
 logger = setup_logger()
 
 MODEL_PATH = os.path.abspath("model/rpi4-blokjes.eim")
