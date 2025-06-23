@@ -30,7 +30,8 @@ def plaats_blokje(device, plek):
         device.move_to(x=310, y=3, z=30, r=110)
     else:
         # Onbekend plek
-        device.move_to(x=310, y=3, z=30, r=130) # Hoog boven de loopband)
+        device.move_to(x=250, y=3, z=50, r=130) # Hoog boven de loopband
+        device.move_to(x=310, y=3, z=30, r=130) # boven de loopband)
         device.move_to(x=310, y=3, z=20, r=130)
         device.grip(False)
         time.sleep(0.5)  # Wacht even om los te laten
