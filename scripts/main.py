@@ -58,7 +58,7 @@ def handle_detection_trigger(payload):
     logger.info("trigger ontvangen: %s", payload)
 
     try:
-        max_retries = 5
+        max_retries = 10
         retry_count = 0
         label = "onbekend"
         confidence = 0.0
