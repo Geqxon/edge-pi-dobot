@@ -34,3 +34,5 @@ config/config.ini
 
 # Editor tijdelijke bestanden
 *.swp
+
+*/test.py
