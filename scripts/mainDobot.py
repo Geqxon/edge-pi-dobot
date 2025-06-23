@@ -30,12 +30,12 @@ def plaats_blokje(device, plek):
         device.move_to(x=310, y=3, z=30, r=110)
     else:
         # Onbekend plek
-        device.move_to(x=320, y=3, z=120, r=110) # Hoog boven de loopband)
-        device.move_to(x=320, y=3, z=20, r=110)
+        device.move_to(x=310, y=3, z=120, r=130) # Hoog boven de loopband)
+        device.move_to(x=310, y=3, z=20, r=130)
         device.grip(False)
         time.sleep(0.5)  # Wacht even om los te laten
         device.suck(False)
-        device.move_to(x=320, y=3, z=30, r=110)
+        device.move_to(x=310, y=3, z=30, r=130)
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--plaats", type=str, required=True, help="Waar moet het blokje geplaatst worden?")
