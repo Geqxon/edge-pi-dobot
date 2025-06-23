@@ -19,7 +19,7 @@ class Rabbit:
                  password='guest',
                  virtual_host='/',
                  config_path=None, 
-                 on_trigger=None,
+                 on_trigger:function=None,
                  logger=None):
         self._on_trigger = on_trigger
 

@@ -13,21 +13,21 @@ def read_errors(device: Dobot):
 def plaats_blokje(device, plek):
     if plek == "plek1":
         # Vul hier de coördinaten in voor plek1
-        device.move_to(x=-2, y=201, z=120, r=80) # Hoog boven de loopband
-        device.move_to(x=-2, y=-201, z=5, r=80)
+        device.move_to(x=75, y=175, z=77, r=85) #voor de mgazijn van zwart blokje met grijs logo
+        device.move_to(x=75, y=250, z=77, r=85) #druk blokjes verder magazijn in
+        device.move_to(x=75, y=250, z=70, r=85) #laat blokje vallen
         device.grip(False)
         time.sleep(0.5)  # Wacht even om los te laten
         device.suck(False)
-        device.move_to(x=-2, y=-201, z=120, r=80)
-    elif plek == "plek2":
-        # Vul hier de coördinaten in voor plek2
-        device.move_to(x=220, y=-10, z=55, r=80) # Hoog boven de loopband
-        device.move_to(x=310, y=3, z=30, r=110) # Hoog boven de loopband)
-        device.move_to(x=310, y=3, z=20, r=120)
+        device.move_to(x=75, y=250, z=95, r=85) #grijper boven blokje brengen voor volgende stap.
+    elif plek == "plek2":   
+        device.move_to(x=135, y=180, z=77, r=85) #voor de mgazijn van zwart blokje met grijs logo
+        device.move_to(x=135, y=250, z=77, r=85) #druk blokjes verder magazijn in
+        device.move_to(x=135, y=250, z=70, r=85) #laat blokje vallen
         device.grip(False)
         time.sleep(0.5)  # Wacht even om los te laten
         device.suck(False)
-        device.move_to(x=310, y=3, z=30, r=110)
+        device.move_to(x=135, y=250, z=95, r=85) #grijper boven blokje brengen voor volgende stap.
     else:
         # Onbekend plek
         device.move_to(x=250, y=3, z=50, r=130) # Hoog boven de loopband
